@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const verifyFirebaseToken = require('../middlewares/verifyFirebaseToken');
 
-// Create user
-router.post('/', async (req, res) => {
+// Verify Firebase token
+router.post('/verify', verifyFirebaseToken, (req, res) => {
+  res.json({
+    message: 'User authenticated',
+    uid: req.user.uid,
+    email: req.user.email,
+  });
+});
+
+// Create user (protected)
+router.post('/', verifyFirebaseToken, async (req, res) => {
   try {
     const newUser = new User(req.body);
     const saved = await newUser.save();
@@ -13,8 +23,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all users
-router.get('/', async (req, res) => {
+// Get all users (protected)
+router.get('/', verifyFirebaseToken, async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
