@@ -1,9 +1,17 @@
 const express = require('express');
-const { getGamelist,addGamelist } = require('../controllers/gameControllers');
 const router = express.Router();
+const {
+  addGame,
+  updateGame,
+  getGame,
+  getAllGames,
+  deleteGame,
+} = require('../controllers/gameControllers');
 
-// Route: GET /api/site/gamelist/pc
-router.get('/gamelist', getGamelist);
-router.post('/gamelist',addGamelist)
+router.post('/', addGame);
+router.put('/:id', updateGame);
+router.get('/:id', getGame);
+router.get('/', getAllGames);
+router.delete('/:id', deleteGame);
 
-module.exports=router;
+module.exports = router;
