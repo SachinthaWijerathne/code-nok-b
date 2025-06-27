@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     mc: { type: String, unique: true }, // member code
     uid: { type: String, required: true, unique: true },
+    role:{type:String,default:'Guest'},
+    isApproved:{type:Boolean,default:false},
     main: String, // game code
     second: String, // game code
     addedAt: { type: Date, default: Date.now }, // custom timestamp
