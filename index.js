@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const connectDB = require("./configs/mongoose.config");
-const userRoutes = require("./routes/UserRoutes");
+const userRoutes = require("./routes/userRoutes");
 const gameRoutes = require("./routes/gameRoutes");
 const admin = require("./configs/firebase.config");
 

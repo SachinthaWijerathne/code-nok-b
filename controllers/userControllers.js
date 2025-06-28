@@ -1,20 +1,19 @@
 const User = require("../models/User");
 const admin = require("../configs/firebase.config");
 
+// ✅ Verify Firebase token & create user if not exists
 const verifyUser = async (req, res) => {
   try {
     const idToken = req.headers.authorization?.split("Bearer ")[1];
     if (!idToken) return res.status(401).json({ error: "Missing token" });
 
     const decoded = await admin.auth().verifyIdToken(idToken);
-
     const { uid, email } = decoded;
     const { displayName } = req.body;
 
-    // Check if user exists in DB
     let user = await User.findOne({ uid });
+
     if (!user) {
-      // Create if not exists
       user = new User({
         uid,
         email,
@@ -32,11 +31,17 @@ const verifyUser = async (req, res) => {
   }
 };
 
+// ✅ Get all users
 const getUserlist = async (req, res) => {
-  const users = await User.find();
-  res.json(users);
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
+// ✅ Signup a new user (if not already in DB)
 const signupUser = async (req, res) => {
   try {
     const { name, email, uid, role = "Guest", isApproved = false } = req.body;
@@ -45,13 +50,9 @@ const signupUser = async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // Check if user already exists
     const existing = await User.findOne({ uid });
-    if (existing) {
-      return res.status(200).json(existing);
-    }
+    if (existing) return res.status(200).json(existing);
 
-    // Create new user in DB
     const newUser = new User({
       name,
       email,
@@ -67,8 +68,44 @@ const signupUser = async (req, res) => {
   }
 };
 
+// ✅ Get user by UID
+const getUserByUID = async (req, res) => {
+  try {
+    const user = await User.findOne({ uid: req.params.uid });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// ✅ Update user by UID
+const updateUser = async (req, res) => {
+  try {
+    const updated = await User.findOneAndUpdate({ uid: req.params.uid }, req.body, { new: true });
+    if (!updated) return res.status(404).json({ error: "User not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// ✅ Delete user by UID
+const deleteUser = async (req, res) => {
+  try {
+    const deleted = await User.findOneAndDelete({ uid: req.params.uid });
+    if (!deleted) return res.status(404).json({ error: "User not found" });
+    res.json({ message: "User deleted", user: deleted });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
+  verifyUser,
   getUserlist,
   signupUser,
-  verifyUser,
+  getUserByUID,
+  updateUser,
+  deleteUser,
 };
