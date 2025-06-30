@@ -1,6 +1,5 @@
 const express=require('express')
 const router=express.Router()
-const verifyFirebaseToken = require("../middlewares/verifyFirebaseToken"); 
 
 // ✅ Controllers imported
 const {
@@ -11,6 +10,7 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/userControllers");
+const { verifyFirebaseToken } = require('../middlewares/verifyFirebaseToken');
 
 // ✅ Middleware added to protected routes
 router.get("/", verifyFirebaseToken, getUserlist);

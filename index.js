@@ -11,8 +11,16 @@ const admin = require("./configs/firebase.config");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
 // Middleware
-app.use(cors());
+const allowed=[
+  "http://localhost:5173"
+]
+
+app.use(cors({
+  origin:allowed,
+  credentials:true
+}));
 app.use(express.json());
 
 // Connect DB
