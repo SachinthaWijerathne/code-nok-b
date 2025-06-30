@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 const allowed=[
   "https://nok.web.app",
+  "http://localhost:5173"
 ]
 
 app.use(cors({
