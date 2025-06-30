@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     name: String,
     email: { type: String, unique: true, required: true },
-    mc: { type: String, unique: true }, // member code
+    mc: { type: String }, // member code
     uid: { type: String, required: true, unique: true },
     role:{type:String,default:'Guest'},
     isApproved:{type:Boolean,default:false},
