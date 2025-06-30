@@ -14,20 +14,12 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 const allowed=[
-  "http://localhost:5173",
   "https://nok.web.app",
-  "https://nok.firebaseapp.com"
 ]
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowed.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
+  origin:allowed,
+  credentials:true
 }));
 app.use(express.json());
 
