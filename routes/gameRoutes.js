@@ -7,11 +7,15 @@ const {
   getAllGames,
   deleteGame,
 } = require('../controllers/gameControllers');
-
-router.post('/', addGame);
-router.put('/:id', updateGame);
+const { verifyFirebaseToken } = require('../middlewares/verifyFirebaseToken');
+const { verifyRole } = require('../middlewares/verifyRole');
+//everyone
 router.get('/:id', getGame);
 router.get('/', getAllGames);
-router.delete('/:id', deleteGame);
+
+//protected
+router.post('/', verifyFirebaseToken, verifyRole(['dev', 'ceo']), addGame);
+router.put('/:id', verifyFirebaseToken, verifyRole(['dev', 'ceo']), updateGame);
+router.delete('/:id', verifyFirebaseToken, verifyRole(['dev', 'ceo']), deleteGame);
 
 module.exports = router;

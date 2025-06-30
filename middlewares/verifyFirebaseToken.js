@@ -20,4 +20,4 @@ const verifyFirebaseToken = async (req, res, next) => {
   }
 };
 
-module.exports = verifyFirebaseToken;
+module.exports = {verifyFirebaseToken}
