@@ -16,7 +16,8 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   "http://localhost:5173",
   "https://nok.web.app",
-  "https://admin-nok.web.app"
+  "https://admin-nok.web.app",
+  "https://nok--test-33qiagfz.web.app"
 ];
 
 app.use(cors({
