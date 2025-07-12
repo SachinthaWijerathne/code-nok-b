@@ -6,6 +6,7 @@ dotenv.config();
 const connectDB = require("./configs/mongoose.config");
 const userRoutes = require("./routes/userRoutes");
 const gameRoutes = require("./routes/gameRoutes");
+const newsRoutes = require("./routes/newsRoutes");
 const admin = require("./configs/firebase.config");
 
 const app = express();
@@ -18,7 +19,7 @@ const allowedOrigins = [
   "http://192.168.1.54:5173",
   "https://nok.web.app",
   "https://admin-nok.web.app",
-  "https://nok--test-33qiagfz.web.app"
+  "https://noktest--test-lpvpksko.web.app/"
 ];
 
 app.use(cors({
@@ -39,6 +40,7 @@ connectDB();
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/games", gameRoutes);
+app.use("/api/news",newsRoutes)
 
 // Default route
 app.get("/", (req, res) => {
