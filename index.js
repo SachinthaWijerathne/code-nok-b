@@ -19,7 +19,7 @@ const allowedOrigins = [
   "http://192.168.1.54:5173",
   "https://nok.web.app",
   "https://admin-nok.web.app",
-  "https://noktest--test-lpvpksko.web.app/"
+  "https://noktest--test-lpvpksko.web.app"
 ];
 
 app.use(cors({
