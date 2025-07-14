@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       dob:Date,
       gender:{type:String,enum:['Male','Female']},
       nic:{type:String},
-      pp:{type:String,default:'https://ibb.co/Sw0F9bpK/logo'}
+      pp:{type:String,default:'https://ibb.co/Sw0F9bpK/logo.png'}
     },
     contact: { // discord id,name + tag
       email: { type: String, unique: true, required: true },
