@@ -19,10 +19,19 @@ const userSchema = new mongoose.Schema(
       address:{type:String},
       district:String,
       city:String,
-      postalCode:Number
+      postalCode:Number,
+      discord:{
+        id: String, // discord id
+        name: String, // discord name + tag
+        tag: String // discord tag
+      }
     },
     social:{
       facebook:String,
+      youtube:String,
+      instagram:String,
+      twitter:String,
+      tiktok:String,
       
     },
     game: {
@@ -37,10 +46,24 @@ const userSchema = new mongoose.Schema(
       other: [{ name: String, gamecode: String }]
     },
     badge: {
-      playerStars: Number, // player stars     level: { type: String, default: 'n', enum: ['w', 't', 'ec', 'n', 'c', 'p', 'l'] },
-      
       enhansed: Boolean,//player stars, badge enhansed, 
-      level: String
+    },
+    playerLevel:{
+      world: { type: Boolean, default: false },
+      local: { type: Boolean, default: false },
+      trainer: { type: Boolean, default: false },
+      pro: { type: Boolean, default: false },
+      eClan: { type: Boolean, default: false },
+      clan: { type: Boolean, default: false },
+      new: { type: Boolean, default: true }
+    },
+    managelevel: {
+      coo: { type: Boolean, default: false },
+      aGame: { type: Boolean, default: false }, // admin game
+      game: { type: Boolean, default: true }, // game management
+      leader: { type: Boolean, default: true }, // team leader
+      ceo: { type: Boolean, default: false },
+      dev: { type: Boolean, default: false }
     },
     role: { type: String, default: 'Guest', enum: ['ceo', 'coo', 'Leader', 'admin', 'coadmin', 'Member', 'Guest'] },
     isApproved: { type: Boolean, default: false },
